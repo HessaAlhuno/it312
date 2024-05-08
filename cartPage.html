@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title> techfood</title>
+<link rel= "stylesheet" href="project.css">
+<script>
+  // Function to increase quantity
+  function increaseQuantity(meal) {
+    var quantityElement = document.getElementById("quantity-" + meal);
+    var priceElement = document.getElementById("price-" + meal);
+    var quantity = parseInt(quantityElement.textContent);
+    var price = parseFloat(priceElement.textContent);
+    
+    quantity++;
+    quantityElement.textContent = quantity;
+    updatePrice(meal, quantity, price);
+    calculateTotal();
+  }
+  
+  // Function to decrease quantity
+  function decreaseQuantity(meal) {
+    var quantityElement = document.getElementById("quantity-" + meal);
+    var priceElement = document.getElementById("price-" + meal);
+    var quantity = parseInt(quantityElement.textContent);
+    var price = parseFloat(priceElement.textContent);
+    
+    if (quantity > 1) {
+      quantity--;
+      quantityElement.textContent = quantity;
+      updatePrice(meal, quantity, price);
+      calculateTotal();
+    }
+  }
+  
+  // Function to update price for a meal
+  function updatePrice(meal, quantity, price) {
+    var priceElement = document.getElementById("price-" + meal);
+    priceElement.textContent = (quantity + price).toFixed(2);
+  }
+  
+  // Function to calculate total quantity and price
+  function calculateTotal() {
+    var totalQuantity = 0;
+    var totalPrice = 0;
+    
+    var meals = document.getElementsByClassName("meales");
+    var quantities = document.getElementsByClassName("quantity");
+    var prices = document.getElementsByClassName("price");
+    
+    for (var i = 0; i < meals.length; i++) {
+      var quantity = parseInt(quantities[i].textContent);
+      var price = parseFloat(prices[i].textContent);
+      
+      totalQuantity += quantity;
+      totalPrice += quantity * price;
+    }
+    
+    document.getElementById("total-quantity").textContent = totalQuantity;
+    document.getElementById("total-price").textContent = totalPrice.toFixed(2);
+  }
+  
+  // Function to handle checkout
+  function checkout() {
+    var totalPrice = parseFloat(document.getElementById("total-price").textContent);
+    alert("Total cost: " + totalPrice.toFixed(2));
+    window.location.href = "ResturantEval.html";
+  }
+// Function to clear the cart
+function clearCart() {
+  var cartTable = document.getElementById("cart-table");
+  var cartRows = cartTable.querySelectorAll("tr");
+  
+  // Remove all rows except the header row
+  for (var i = 0; i < cartRows.length; i++) {
+    cartRows[i].parentNode.removeChild(cartRows[i]);
+  }
+}
+</script>
+
+<style>
+  header{margin-bottom: 1%;}
+  #fristborde{border: solid; }
+  h2{text-align: center;font-size:medium;}
+  #secondborder{border: solid;}
+  p{margin-left: 1%;}
+  button.prodects{  margin-inline: 45em;margin-bottom:1%;}
+  button.checkout{  margin-inline: 45em;margin-bottom:1%;}
+</style>
+
+</head> 
+
+<body>
+
+  <header>
+     
+    <a href="index.html" ><img src="image/Tech.png" id="logo" alt="logo" width="180" height="180"> </a> 
+
+    <h1 id="cart_Page">cart</h1>
+
+        <div id='navigation'>
+          <p> <a href="Owner's_Dashboard.html">Owner's_Dashboard</a>  |  <a href="Restrants.html">Customer's_Dashboard</a>  |   <a href="ResturantPage.html">Current Restaurants</a> </p>
+            </div>
+
+            <div id="breadcrumb">
+              <p> <a href="index.html">Home Page</a>  >  <a href="ResturantPage.html">Resturant</a> > <a href="cart_page.html">Cart</a></p>
+             </div>
+    
+   </header>  
+
+         <main>
+         
+          <div id="fristborde">
+          <h2 >cart</h2><hr>
+         <table id="cart-table">
+        <tr >
+        <th><img src="image/salad22.jpg" class="meales" alt="meal1" width="45" height="50"> </th>
+        <th >meal A</th>
+        <td class="price" id="price-mealA">20.00</td>
+        <td >
+          <button class="quantity-btn remove" onclick="increaseQuantity('mealA')">+</button>
+          <span class="quantity" id="quantity-mealA">1</span>
+          <button class="quantity-btn add" onclick="decreaseQuantity('mealA')">-</button>
+        </td>
+        </tr>
+        <tr>
+          <th><img src="image/cha.jpg" class="meales" alt="meal1" width="45" height="50"> </th>
+        <th>meal B</th>
+        <td class="price" id="price-mealB">30.00</td>
+        <td>
+          <button class="quantity-btn remove" onclick="increaseQuantity('mealB')">+</button>
+          <span class="quantity" id="quantity-mealB">2</span>
+          <button class="quantity-btn add" onclick="decreaseQuantity('mealB')">-</button>
+        </td>
+        </tr>
+        <tr>
+        <th><img src="image/OIP.jpg" class="meales" alt="meal1" width="45" height="50"> </th>
+        <th>meal C</th>
+        <td class="price" id="price-mealC">10.00</td>
+        <td>
+          <button class="quantity-btn remove" onclick="increaseQuantity('mealC')">+</button>
+          <span class="quantity" id="quantity-mealC">1</span>
+          <button class="quantity-btn add" onclick="decreaseQuantity('mealC')">-</button>
+        </td>
+        </tr>
+         </table>
+         <button class="prodects" onclick="clearCart()">Clear cart</button>
+        </div>
+        <pre></pre>
+        <div id="secondborder" >
+        <h2 >order summary</h2><hr>
+        <p>Total quantity: <span id="total-quantity">0</span></p>
+        <p>Total price: $<span id="total-price">0.00</span></p>
+        
+        <button onclick="checkout()" class="checkout">Check Out</button>
+
+          
+        </div>
+        
+       </main>
+
+       <footer>
+        <h3>Contact Info :</h3>
+         <div id="contact" >
+        <p>Phone Number: 05xxxxxxxxx</p>
+        <p>Email: TechFood@hotmail.com</p>
+        <img src="image/youtube.webp"  class="icon" alt="youtube" width="35" height="35">
+        <img src="image/xx.PNG" class="icon" alt="X" width="35" height="25">
+        <img src="image/insta.webp" class="icon" alt="Instagram" width="35" height="35">
+        <img src="image/Facebook.PNG" class="icon" alt="Facebook" width="38" height="40">
+        <img src="image/linkedIn.PNG" class="icon" alt="LinkedIn" width="38" height="40">
+        
+
+         </div>
+
+        <p id="copy"> &copy; 2024 Techfood</p>
+       </footer>                                
+</body>
+</html>
